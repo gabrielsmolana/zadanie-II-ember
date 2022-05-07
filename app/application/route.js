@@ -5,18 +5,21 @@ export default class ApplicationRoute extends Route {
   @service store;
 
   async beforeModel() {
-    window.localStorage.clear();
     const user1 = {
+      id: 1,
       username: 'admin',
       password: 'admin123',
       email: 'admin@admin.com',
+      photoURL: 'https://funnycat.pl/wp-content/uploads/2020/02/koty-i-pude%C5%82ka-256x256.png',
       isAdmin: true,
     };
 
     const user2 = {
+      id: 2,
       username: 'user',
       password: 'user123',
       email: 'user@user.com',
+      photoURL: 'https://a.allegroimg.com/s400/118184/e23b5cb54e7596e117f51a3eab02/MAGNES-NA-LODOWKE-PIES'
     };
 
     const user1Model = this.store.createRecord('user', user1);
