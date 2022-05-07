@@ -2,6 +2,7 @@ import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 
 // post > show > temp wrzucic do komponentu <Post::Card @posts={{this.model}}>
+// user > show > temp wrzucic do komponentu <User::Details @user={{this.model}}>
 
 export default class ApplicationRoute extends Route {
   @service store;

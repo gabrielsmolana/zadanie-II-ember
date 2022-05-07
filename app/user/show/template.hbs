@@ -10,4 +10,7 @@
     <li class='list-group-item'>Is admin: {{ this.model.isAdmin }}</li>
   </ul>
 </div>
+
+<Posts::List @posts={{this.model.posts}} />
+
 {{outlet}}
