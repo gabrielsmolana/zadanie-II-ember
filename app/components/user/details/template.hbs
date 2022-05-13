@@ -1,0 +1,11 @@
+<div class='card mx-auto' style='width: 18rem; margin: 2rem;'>
+    <img src={{ @user.photoURL }} alt="" class="card-img-top"/>
+  <div class='card-body'>
+    <h5 class='card-title' style="color: rgb(231, 102, 102)">{{ @user.id }}: {{ @user.username }}</h5>
+    <p class='card-text'>{{ @user.email }}</p>
+  </div>
+  <ul class='list-group list-group-flush'>
+    <li class='list-group-item'>Password: {{ @user.password }}</li>
+    <li class='list-group-item'>Is admin: {{ @user.isAdmin }}</li>
+  </ul>
+</div>
