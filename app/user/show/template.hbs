@@ -1,16 +1,4 @@
 {{page-title 'Show'}}
-<div class='card mx-auto' style='width: 18rem; margin: 2rem;'>
-    <img src={{ this.model.photoURL }} alt="" class="card-img-top"/>
-  <div class='card-body'>
-    <h5 class='card-title' style="color: rgb(231, 102, 102)">{{ this.model.id }}: {{ this.model.username }}</h5>
-    <p class='card-text'>{{ this.model.email }}</p>
-  </div>
-  <ul class='list-group list-group-flush'>
-    <li class='list-group-item'>Password: {{ this.model.password }}</li>
-    <li class='list-group-item'>Is admin: {{ this.model.isAdmin }}</li>
-  </ul>
-</div>
-
+<User::Details @user={{this.model}} />
 <Posts::List @posts={{this.model.posts}} />
-
 {{outlet}}
