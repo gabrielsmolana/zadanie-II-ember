@@ -1,17 +1,19 @@
 <div class="container mt-5">
-  <div class="mb-3 row">
-    <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="staticEmail" placeholder="email@example.com">
+  <form action="">
+    <div class="mb-3 row">
+      <label for="inputUsername" class="col-sm-2 col-form-label">Login</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputUsername" placeholder="email@example.com" {{ on 'input' this.onLoginChange }}>
+      </div>
     </div>
-  </div>
-  <div class="mb-3 row">
-    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-    <div class="col-sm-10">
-      <input type="password" class="form-control" id="inputPassword" placeholder="password">
+    <div class="mb-3 row">
+      <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+      <div class="col-sm-10">
+        <input type="password" class="form-control" id="inputPassword" placeholder="password" {{ on 'input' this.onPasswordChange }}>
+      </div>
     </div>
-  </div>
-  <div class="mb-3 row">
-    <button class="btn btn-primary" type="button">Login</button>
-  </div>
+    <div class="mb-3 row">
+      <button class="btn btn-primary" type="submit" {{ on 'click' this.onSubmit }}>Login</button>
+    </div>
+  </form>
 </div>
