@@ -23,7 +23,10 @@
         <LinkTo class='nav-link' @route='home.settings'>Settings</LinkTo>
       </li>
       <li class='nav-item'>
-        <a class='nav-link disabled' href='#'>login</a>
+        <LinkTo class='nav-link' @route='login'>Login</LinkTo>
+      </li>
+      <li class='nav-item'>
+        <span class="nav-link" type="button" {{ on 'click' this.onLogout }}>Logout</span>
       </li>
     </ul>
   </div>

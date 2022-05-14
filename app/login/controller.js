@@ -36,5 +36,7 @@ export default class LoginController extends Controller{
 
         const user = await users.firstObject
         this.loggedAs.set('id', user.id);
+
+        window.location.href = '/'
     }
 }
