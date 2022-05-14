@@ -8,7 +8,7 @@ export default class HomeRoute extends Route{
     @storageFor('logged-as') loggedAs;
 
     beforeModel(){
-        const isLoggedIn = this.loggedAs.id == null ? false : true
+        const isLoggedIn = this.loggedAs.get('id') == null ? false : true
         
         if(!isLoggedIn){
             this.router.transitionTo('login')
