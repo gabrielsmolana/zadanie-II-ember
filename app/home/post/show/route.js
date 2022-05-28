@@ -1,11 +1,11 @@
 import Route from '@ember/routing/route';
-import {inject as service} from '@ember/service'
+import { inject as service } from '@ember/service';
 
 export default class PostShowRoute extends Route {
-    @service store;
+  @service store;
 
-    async model(params){
-        const post = await this.store.findRecord('post', params.id)
-        return post
-    }
+  async model(params) {
+    const post = await this.store.findRecord('post', params.id);
+    return post;
+  }
 }

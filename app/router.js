@@ -21,6 +21,6 @@ Router.map(function () {
     this.route('settings');
   });
 
-  this.route('login', { path: '/login'});
-  this.route('register', { path: '/register'});
+  this.route('login');
+  this.route('register');
 });
