@@ -1,9 +1,7 @@
 {{page-title 'Settings'}}
 <Header>Settings</Header>
 <div class='container mt-5'>
-  <form 
-  {{!-- {{on 'submit' this.onSubmit}} --}}
-  >
+  <form {{on 'submit' this.onSubmit}}>
     <div class='mb-3 row'>
       <label
         for='inputUsername'
@@ -14,8 +12,9 @@
           type='text'
           class='form-control'
           id='inputUsername'
-          placeholder='email@example.com'
-          {{!-- {{on 'input' this.onUsernameChange}} --}}
+          placeholder='username'
+          value={{this.model.username}}
+          {{on 'input' this.onUsernameChange}}
         />
       </div>
     </div>
@@ -26,8 +25,9 @@
           type='text'
           class='form-control'
           id='inputEmail'
-          placeholder='email'
-          {{!-- {{on 'input' this.onEmailChange}} --}}
+          placeholder='email@example.com'
+          value={{this.model.email}}
+          {{on 'input' this.onEmailChange}}
         />
       </div>
     </div>
@@ -42,7 +42,8 @@
           class='form-control'
           id='inputPassword'
           placeholder='password'
-          {{!-- {{on 'input' this.onPasswordChange}} --}}
+          value={{this.model.password}}
+          {{on 'input' this.onPasswordChange}}
         />
       </div>
     </div>
@@ -54,16 +55,23 @@
           class='form-control'
           id='inputPhotoUrl'
           placeholder='photo url'
-          {{!-- {{on 'input' this.onPhotoURLChange}} --}}
+          value={{this.model.photoURL}}
+          {{on 'input' this.onPhotoURLChange}}
         />
       </div>
     </div>
     <div class='mb-3 row'>
-      <div class="d-flex">
-        <button class='me-1 btn btn-primary w-50' type='submit'>Change</button>
+      <div class='d-flex'>
+        <button
+          class='me-1 btn btn-primary w-50'
+          type='submit'
+          disabled={{this.shouldDisableButton}}
+        >Change</button>
         <button
           class='ms-1 btn btn-secondary w-50'
-          type='submit'
+          type='button'
+          disabled={{this.shouldDisableButton}}
+          {{on 'click' this.discardChanges}}
         >Cancel</button>
       </div>
     </div>
