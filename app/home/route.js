@@ -4,15 +4,16 @@ import { inject as service } from '@ember/service';
 
 export default class HomeRoute extends Route {
   @service router;
+  @service session;
 
-  @storageFor('logged-as') loggedAs;
+  async beforeModel() {
+    const { isUserLoggedIn } = this.session
 
-  beforeModel() {
-    const isLoggedIn = this.loggedAs.get('id') == null ? false : true;
-
-    if (!isLoggedIn) {
+    if (!isUserLoggedIn) {
       this.router.transitionTo('login');
       return;
     }
+
+    await this.session.setCurrentUser()
   }
 }
