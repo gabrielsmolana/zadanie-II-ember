@@ -5,7 +5,7 @@ import { inject as service } from '@ember/service';
 
 export default class LoginController extends Controller {
   @service session;
-  
+
   @tracked loginValue;
   @tracked passwordValue;
 

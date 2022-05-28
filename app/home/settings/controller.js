@@ -36,7 +36,7 @@ export default class RegisterController extends Controller {
   }
 
   @action
-  discardChanges(){
-    this.model.rollbackAttributes()
+  discardChanges() {
+    this.model.rollbackAttributes();
   }
 }
