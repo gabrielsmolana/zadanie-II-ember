@@ -7,14 +7,14 @@ export default class PostModel extends Model {
   @attr('date', {defaultValue: () => new Date()}) createdAt;
   @belongsTo('user', { autoSave: true }) owner;
   @hasMany('like') likes;
+  
+  // get fullDate(){
+  //   const date = new Date(this.createdAt);
 
-  get fullDate(){
-    const date = new Date(this.createdAt);
+  //   const day = date.getDate();
+  //   const month = date.getMonth()+1;
+  //   const year = date.getFullYear();
 
-    const day = date.getDate();
-    const month = date.getMonth()+1;
-    const year = date.getFullYear();
-
-    return `${day}.${month}.${year}`;
-  }
+  //   return `${day}.${month}.${year}`;
+  // }
 }
