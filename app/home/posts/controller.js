@@ -9,8 +9,16 @@ export default class HomePostsController extends Controller {
 
   queryParams = ['dateFrom', 'dateTo'];
 
-  get shouldBeFilteredByDate() {
+  get shouldFilterBetweenDates() {
     return Boolean(this.startDate && this.endDate);
+  }
+
+  get shouldFilterBeforeEndDate() {
+    return !this.shouldFilterBetweenDates && Boolean(this.endDate);
+  }
+
+  get shouldFilterAfterStartDate() {
+    return !this.shouldFilterBetweenDates && Boolean(this.startDate);
   }
 
   get startDate() {
@@ -24,7 +32,7 @@ export default class HomePostsController extends Controller {
   }
 
   get filteredPosts() {
-    if (this.shouldBeFilteredByDate) {
+    if (this.shouldFilterBetweenDates) {
       return this.model.filter((post) => {
         return moment(post.createdAt).isBetween(
           this.startDate,
@@ -35,15 +43,27 @@ export default class HomePostsController extends Controller {
       });
     }
 
+    if (this.shouldFilterBeforeEndDate) {
+      return this.model.filter((post) => {
+        return moment(post.createdAt).isSameOrBefore(this.endDate);
+      });
+    }
+    
+    if (this.shouldFilterAfterStartDate) {
+        return this.model.filter((post) => {
+          return moment(post.createdAt).isSameOrAfter(this.startDate);
+        });
+      }
+    
     return this.model;
   }
 
-  get minDate(){
-    return this.startDate?.toDate()
+  get minDate() {
+    return this.startDate?.toDate();
   }
 
-  get maxDate(){
-    return this.endDate?.toDate()
+  get maxDate() {
+    return this.endDate?.toDate();
   }
 
   @action
@@ -57,8 +77,8 @@ export default class HomePostsController extends Controller {
   }
 
   @action
-  resetFilters(){
-    this.dateFrom = null
-    this.dateTo = null
+  resetFilters() {
+    this.dateFrom = null;
+    this.dateTo = null;
   }
 }
