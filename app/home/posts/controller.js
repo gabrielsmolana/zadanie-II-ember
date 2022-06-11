@@ -6,8 +6,9 @@ import moment from 'moment';
 export default class HomePostsController extends Controller {
   @tracked dateFrom;
   @tracked dateTo;
+  @tracked sort;
 
-  queryParams = ['dateFrom', 'dateTo'];
+  queryParams = ['dateFrom', 'dateTo', 'sort'];
 
   get shouldFilterBetweenDates() {
     return Boolean(this.startDate && this.endDate);
@@ -19,6 +20,14 @@ export default class HomePostsController extends Controller {
 
   get shouldFilterAfterStartDate() {
     return !this.shouldFilterBetweenDates && Boolean(this.startDate);
+  }
+
+  get sortLabel() {
+    if (!this.sort) {
+      return '';
+    }
+
+    this.sort === 'ASC' ? '🔽' : '🔼';
   }
 
   get startDate() {
@@ -48,14 +57,26 @@ export default class HomePostsController extends Controller {
         return moment(post.createdAt).isSameOrBefore(this.endDate);
       });
     }
-    
+
     if (this.shouldFilterAfterStartDate) {
-        return this.model.filter((post) => {
-          return moment(post.createdAt).isSameOrAfter(this.startDate);
-        });
-      }
-    
+      return this.model.filter((post) => {
+        return moment(post.createdAt).isSameOrAfter(this.startDate);
+      });
+    }
+
     return this.model;
+  }
+
+  get sortedPosts() {
+    if (this.sort === 'ASC') {
+        return this.filteredPosts.sortBy('createdAtInMiliseconds')
+    }
+
+    if (this.sort === 'DESC') {
+        return this.filteredPosts.sortBy('createdAtInMiliseconds').reverse()
+    }
+
+    return this.filteredPosts;
   }
 
   get minDate() {
@@ -64,6 +85,19 @@ export default class HomePostsController extends Controller {
 
   get maxDate() {
     return this.endDate?.toDate();
+  }
+
+  @action
+  onSortToggle() {
+    if (!this.sort) {
+      return (this.sort = 'ASC');
+    }
+
+    if (this.sort == 'ASC') {
+      return (this.sort = 'DESC');
+    }
+
+    return (this.sort = undefined);
   }
 
   @action
