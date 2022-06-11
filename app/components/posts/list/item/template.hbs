@@ -6,7 +6,7 @@
       >{{@post.title}}</LinkTo></h2>
     <h6 class='card-subtitle mb-2 text-muted pedal'>Owner:
       {{@post.owner.username}}</h6>
-    <p class='card-text'>Utworzony: {{moment-format  @post.createdAt 'MM.DD.YYYY HH:mm'}}</p>
+    <p class='card-text'>Utworzony: {{moment-format  @post.createdAt 'DD.MM.YYYY HH:mm'}}</p>
     <p class='card-text'>{{@post.body}}</p>
     <Posts::List::Item::Actions @post={{@post}} />
   </div>
