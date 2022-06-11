@@ -1,5 +1,26 @@
 {{page-title 'Posts'}}
 <Header>Posts</Header>
+<div>
+<label>
+  Start date:
+  <PikadayInput
+    @format="DD-MM-YYYY"
+    @value={{this.dateFrom}}
+    @maxDate={{this.maxDate}}
+    @onSelection={{this.onStartDayChange}}
+  />
+</label>
+<label>
+  End date:
+  <PikadayInput
+    @format="DD-MM-YYYY"
+    @value={{this.dateTo}}
+    @minDate={{this.minDate}}
+    @onSelection={{this.onEndDayChange}}
+  />
+</label>
+<button type='button' class="btn btn-primary" {{on 'click' this.resetFilters}}>Reset</button>
+</div>
 <Posts::List @posts={{this.filteredPosts}} />
 <Post::Create />
 {{outlet}}
