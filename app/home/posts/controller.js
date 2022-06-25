@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
-import {inject as service} from '@ember/service'
+import { inject as service } from '@ember/service';
 import moment from 'moment';
 
 export default class HomePostsController extends Controller {
@@ -10,15 +10,15 @@ export default class HomePostsController extends Controller {
   @tracked dateFrom;
   @tracked dateTo;
   @tracked sort;
-  @tracked selectedAuthors = []
+  @tracked selectedAuthors = [];
 
-  constructor(){
-    super(...arguments)
+  constructor() {
+    super(...arguments);
 
-    this.authors = this.store.findAll('user')
+    this.authors = this.store.findAll('user');
   }
 
-  authors = []
+  authors = [];
 
   queryParams = ['dateFrom', 'dateTo', 'sort'];
 
@@ -34,6 +34,10 @@ export default class HomePostsController extends Controller {
     return !this.shouldFilterBetweenDates && Boolean(this.startDate);
   }
 
+  get shouldFilterByAuthors() {
+    return Boolean(this.selectedAuthors.length);
+  }
+
   get sortLabel() {
     if (!this.sort) {
       return '';
@@ -43,7 +47,7 @@ export default class HomePostsController extends Controller {
   }
 
   get startDate() {
-    if (!this.dateFrom) return null;c
+    if (!this.dateFrom) return null;
     return moment(this.dateFrom).startOf('day');
   }
 
@@ -53,8 +57,18 @@ export default class HomePostsController extends Controller {
   }
 
   get filteredPosts() {
+    let posts = this.model;
+
+    if(this.shouldFilterByAuthors){
+      posts = posts.filter((post) => {
+        return this.selectedAuthors.find((author) => {
+          return author.get('id') === post.owner.get('id')
+        })
+      })
+    }
+
     if (this.shouldFilterBetweenDates) {
-      return this.model.filter((post) => {
+      return posts.filter((post) => {
         return moment(post.createdAt).isBetween(
           this.startDate,
           this.endDate,
@@ -65,27 +79,27 @@ export default class HomePostsController extends Controller {
     }
 
     if (this.shouldFilterBeforeEndDate) {
-      return this.model.filter((post) => {
+      return posts.filter((post) => {
         return moment(post.createdAt).isSameOrBefore(this.endDate);
       });
     }
 
     if (this.shouldFilterAfterStartDate) {
-      return this.model.filter((post) => {
+      return posts.filter((post) => {
         return moment(post.createdAt).isSameOrAfter(this.startDate);
       });
     }
 
-    return this.model;
+    return posts;
   }
 
   get sortedPosts() {
     if (this.sort === 'ASC') {
-        return this.filteredPosts.sortBy('createdAtInMiliseconds')
+      return this.filteredPosts.sortBy('createdAtInMiliseconds');
     }
 
     if (this.sort === 'DESC') {
-        return this.filteredPosts.sortBy('createdAtInMiliseconds').reverse()
+      return this.filteredPosts.sortBy('createdAtInMiliseconds').reverse();
     }
 
     return this.filteredPosts;
