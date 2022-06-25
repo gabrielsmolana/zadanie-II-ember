@@ -1,15 +1,11 @@
 {{page-title 'Posts'}}
 <Header>Posts</Header>
 <div class="d-flex justify-content-between">
-<PowerSelectMultiple
-  class="flex-fill"
+<Shared::UserSelector 
+  @multipleType={{true}}
   @selected={{this.selectedAuthors}} 
-  @options={{this.authors}} 
-  @searchField="username"
-  @onChange={{this.chooseAuthors}} as |author|
-  >
-  {{author.username}}
-</PowerSelectMultiple>
+  @onChange={{this.chooseAuthors}}
+  />
 <div>
 <label>
   Start date:
