@@ -1,5 +1,15 @@
 {{page-title 'Posts'}}
 <Header>Posts</Header>
+<div class="d-flex justify-content-between">
+<PowerSelectMultiple
+  class="flex-fill"
+  @selected={{this.selectedAuthors}} 
+  @options={{this.authors}} 
+  @searchField="username"
+  @onChange={{this.chooseAuthors}} as |author|
+  >
+  {{author.username}}
+</PowerSelectMultiple>
 <div>
 <label>
   Start date:
@@ -19,8 +29,11 @@
     @onSelection={{this.onEndDayChange}}
   />
 </label>
+</div>
+<div>
 <button type='button' class="btn btn-danger" {{on 'click' this.resetFilters}}>Reset</button>
 <button type='button' class="btn btn-primary" {{on 'click' this.onSortToggle}}>Sort {{this.sortLabel}}</button>
+</div>
 </div>
 <Posts::List @posts={{this.sortedPosts}} />
 <Post::Create />
