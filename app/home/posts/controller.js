@@ -34,7 +34,7 @@ export default class HomePostsController extends Controller {
       return '';
     }
 
-    this.sort === 'ASC' ? '🔽' : '🔼';
+    return this.sort === 'ASC' ? '🔽' : '🔼';
   }
 
   get startDate() {
@@ -50,12 +50,12 @@ export default class HomePostsController extends Controller {
   get filteredPosts() {
     let posts = this.model;
 
-    if(this.shouldFilterByAuthors){
+    if (this.shouldFilterByAuthors) {
       posts = posts.filter((post) => {
         return this.selectedAuthors.find((author) => {
-          return author.get('id') === post.owner.get('id')
-        })
-      })
+          return author.get('id') === post.owner.get('id');
+        });
+      });
     }
 
     if (this.shouldFilterBetweenDates) {

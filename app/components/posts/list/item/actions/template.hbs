@@ -1,15 +1,15 @@
 {{#if this.isAlreadyLikedByCurrentUser}}
-  <button class='btn btn-link card-link' {{on 'click' this.onDislike}}>
+  <button type="button" class='btn btn-link card-link' {{on 'click' this.onDislike}}>
     Dislike ({{@post.likes.length}})
     <Posts::List::Item::Actions::WhoLikesItTooltip @post={{@post}} />
   </button>
 {{else}}
-  <button class='btn btn-link card-link' {{on 'click' this.onLike}}>
+  <button type="button" class='btn btn-link card-link' {{on 'click' this.onLike}}>
     Like ({{@post.likes.length}})
     <Posts::List::Item::Actions::WhoLikesItTooltip @post={{@post}} />
   </button>
 {{/if}}
 
 {{#if this.isCreatedByCurrentUser}}
-  <button class='btn btn-link card-link' {{on 'click' this.onDelete}}>Delete</button>
+  <button type="button" class='btn btn-link card-link' {{on 'click' this.onDelete}}>Delete</button>
 {{/if}}
