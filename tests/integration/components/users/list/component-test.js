@@ -2,25 +2,24 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
+import { setupMirage } from 'ember-cli-mirage/test-support';
 
 module('Integration | Component | users/list', function (hooks) {
   setupRenderingTest(hooks);
+  setupMirage(hooks);
 
-  test.skip('it renders', async function (assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+  test('it renders', async function (assert) {
+    this.set('users', this.server.createList('user', 20));
 
-    await render(hbs`<Users::List />`);
+    await render(hbs`<Users::List @users={{this.users}} />`);
 
-    assert.dom(this.element).hasText('');
+    // await this.pauseTest();
 
-    // Template block usage:
-    await render(hbs`
-      <Users::List>
-        template block text
-      </Users::List>
-    `);
-
-    assert.dom(this.element).hasText('template block text');
+    this.users.map((user, index) => {
+      assert.dom(`[data-test-id="${index}"]`).hasText(user.id);
+      assert.dom(`[data-test-username="${index}"]`).hasText(user.username);
+      assert.dom(`[data-test-password="${index}"]`).hasText(user.password);
+      assert.dom(`[data-test-email="${index}"]`).hasText(user.email);
+    });
   });
 });
